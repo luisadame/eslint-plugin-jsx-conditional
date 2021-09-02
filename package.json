@@ -1,0 +1,7 @@
+{
+  "name": "jsx-no-ternary",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Luis Adame <luis@luisadame.ninja>",
+  "license": "MIT"
+}
