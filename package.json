@@ -1,7 +1,10 @@
 {
-  "name": "jsx-no-ternary",
+  "name": "eslint-plugin-jsx-conditional",
   "version": "1.0.0",
-  "main": "index.js",
   "author": "Luis Adame <luis@luisadame.ninja>",
-  "license": "MIT"
+  "main": "index.js",
+  "license": "MIT",
+  "devDependencies": {
+    "eslint": "^7.32.0"
+  }
 }
