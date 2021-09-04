@@ -1,5 +1,9 @@
 # Enforces a consistent use of conditional expressions in jsx (jsx-conditional/jsx-conditional)
 
+<a href="https://codecov.io/gh/luisadame/eslint-plugin-jsx-conditional">
+  <img src="https://codecov.io/gh/luisadame/eslint-plugin-jsx-conditional/branch/main/graph/badge.svg?token=7Z541HVSB6"/>
+</a>
+
 Enforce or forbid the use of conditionals expressions using a ternary or a logical expression using an AND `&&` operator in JSX.
 In other words, it allows to keep a consistent use of the way jsx elements are showned based on a condition
 
