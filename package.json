@@ -4,6 +4,21 @@
   "author": "Luis Adame <luis@luisadame.ninja>",
   "main": "index.js",
   "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/luisadame/eslint-plugin-jsx-conditional.git"
+  },
+  "bugs": {
+    "url": "https://github.com/luisadame/eslint-plugin-jsx-conditional/issues"
+  },
+  "homepage": "https://github.com/luisadame/eslint-plugin-jsx-conditional",
+  "keywords": [
+    "eslint",
+    "conditiona expression",
+    "logical expression",
+    "code style",
+    "standard"
+  ],
   "scripts": {
     "test": "ava tests/lib/rules/*.js",
     "check-coverage": "c8 yarn test",
