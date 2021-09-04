@@ -1,8 +1,8 @@
-"use strict";
+'use strict';
 
 const rules = {
-  "jsx-conditional": require("./lib/rules/jsx-conditional"),
-}
+  'jsx-conditional': require('./lib/rules/jsx-conditional'),
+};
 
 module.exports = {
   rules,
@@ -14,16 +14,16 @@ module.exports = {
         },
       },
       rules: {
-        "jsx-conditional": 2,
+        'jsx-conditional': 2,
       },
     },
     all: {
       parserOptions: {
         ecmaFeatures: {
-          jsx: true
-        }
+          jsx: true,
+        },
       },
       rules,
-    }
+    },
   },
 };
