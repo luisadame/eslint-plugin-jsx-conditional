@@ -4,7 +4,17 @@
   "author": "Luis Adame <luis@luisadame.ninja>",
   "main": "index.js",
   "license": "MIT",
+  "scripts": {
+    "test": "ava tests/lib/rules/*.js"
+  },
   "devDependencies": {
-    "eslint": "^7.32.0"
+    "ava": "^3.15.0",
+    "common-tags": "^1.8.0",
+    "eslint": "^7.32.0",
+    "eslint-ava-rule-tester": "^4.0.0",
+    "eslint-config-prettier": "^8.3.0",
+    "eslint-config-standard": "^16.0.3",
+    "eslint-plugin-node": "^11.1.0",
+    "prettier": "^2.3.2"
   }
 }
