@@ -1,5 +1,6 @@
 {
   "name": "eslint-plugin-jsx-conditional",
+  "description": "Enforces a consistent use of conditional expressions in jsx",
   "version": "1.0.0",
   "author": "Luis Adame <luis@luisadame.ninja>",
   "main": "index.js",
@@ -14,7 +15,7 @@
   "homepage": "https://github.com/luisadame/eslint-plugin-jsx-conditional",
   "keywords": [
     "eslint",
-    "conditiona expression",
+    "conditional expression",
     "logical expression",
     "code style",
     "standard"
