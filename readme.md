@@ -9,6 +9,8 @@ In other words, it allows to keep a consistent use of the way jsx elements are s
 
 This rule checks that conditionals expressions or logical expression match a certain shape.
 
+### Options
+
 This rule accepts an argument that can be one of two possible values:
 
 - `prefer-ternary`
@@ -20,36 +22,158 @@ The default value is `prefer-ternary`.
 
 This option will check for logical expressions inside JSX code and if it finds a logical expression that follows the following shape:
 
-```
-    <>
-        {identifier && (JSXElement | JSXFragment)}
-    </>
+```jsx
+<>{identifier && JSXElement | JSXFragment}</>
 ```
 
 And this would be auto fixable outputing the following code
 
+```jsx
+<>{identifier ? JSXElement | JSXFragment : null}</>
 ```
+
+### Examples
+
+✅ Examples of valid code:
+
+```jsx
+function Component({ propA }) {
+  return <>{propA ? <span>Hello</span> : null}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return <>{propA ? <span>Hello</span> : <span>Hello</span>}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
     <>
-        {identifier ? (JSXElement | JSXFragment) : null}
+      {propA ? (
+        <>
+          <span>Hello</span>
+          <span>Hello 2</span>
+        </>
+      ) : null}
     </>
+  );
+}
+```
+
+❌ Examples of invalid code:
+
+```jsx
+function Component({ propA }) {
+  return <>{propA && <span>Hello</span>}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
+    <>
+      {propA && <span>Hello</span>}
+      {!propA && <span>Hello</span>}
+    </>
+  );
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
+    <>
+      {propA && (
+        <>
+          <span>Hello</span>
+          <span>Hello 2</span>
+        </>
+      )}
+    </>
+  );
+}
 ```
 
 ### `prefer-and-operator`
 
 This option will check for conditional expressions inside JSX code and if it finds a conditional expression that follows the following shape:
 
-```
-    <>
-        {identifier ? (JSXElement | JSXFragment) : null}
-    </>
+```jsx
+<>{identifier ? JSXElement | JSXFragment : null}</>
 ```
 
 And this would be auto fixable outputing the following code
 
+```jsx
+<>{identifier && JSXElement | JSXFragment}</>
 ```
+
+### Examples
+
+✅ Examples of valid code:
+
+```jsx
+function Component({ propA }) {
+  return <>{propA && <span>Hello</span>}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
     <>
-        {identifier && (JSXElement | JSXFragment)}
+      {propA && <span>Hello</span>}
+      {!propA && <span>Hello</span>}
     </>
+  );
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
+    <>
+      {propA && (
+        <>
+          <span>Hello</span>
+          <span>Hello 2</span>
+        </>
+      )}
+    </>
+  );
+}
+```
+
+❌ Examples of invalid code:
+
+```jsx
+function Component({ propA }) {
+  return <>{propA ? <span>Hello</span> : null}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return <>{propA ? <span>Hello</span> : <span>Hello</span>}</>;
+}
+```
+
+```jsx
+function Component({ propA }) {
+  return (
+    <>
+      {propA ? (
+        <>
+          <span>Hello</span>
+          <span>Hello 2</span>
+        </>
+      ) : null}
+    </>
+  );
+}
 ```
 
 ## When not to use it
