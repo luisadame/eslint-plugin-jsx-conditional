@@ -31,6 +31,13 @@ const validTestCases = [
     options: [OPTIONS.preferTernary],
   },
   {
+    code: `<div>{propA ? <span>Hello</span> : null}</div>`,
+  },
+  {
+    code: `<div>{propA ? <span>Hello</span> : undefined}</div>`,
+    options: [OPTIONS.preferTernary],
+  },
+  {
     code: `
       function Component({ propA }) {
         return (
@@ -68,6 +75,38 @@ const validTestCases = [
   },
   {
     code: `<div>{!propA && <span>Hello</span>}</div>`,
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{propA && 1}</div>`,
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{propA || 1}</div>`,
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>Hello</div>`,
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{'Hello'}</div>`,
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{propA && 1}</div>`,
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{propA || 1}</div>`,
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>Hello</div>`,
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{'Hello'}</div>`,
     options: [OPTIONS.preferAndOperator],
   },
   {
@@ -210,6 +249,20 @@ const invalidTestCases = [
     options: [OPTIONS.preferTernary],
   },
   {
+    code: `<div>{propA ? <span>Hello</span> : undefined}</div>`,
+    output: `<div>{propA && <span>Hello</span>}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 46,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
     code: `<div>{!propA && <span>Hello</span>}</div>`,
     output: `<div>{!propA ? <span>Hello</span> : null}</div>`,
     errors: [
@@ -290,26 +343,24 @@ const invalidTestCases = [
         {propA && <>
             <span>Hello</span>
             <span>Hello 2</span>
-          </>}
+        </>}
       </div>
     `,
     output: stripIndent`
       <div>
-        {propA ? (
-          <>
+        {propA ? <>
             <span>Hello</span>
             <span>Hello 2</span>
-          </>
-         ) : null}
+        </> : null}
       </div>
     `,
     errors: [
       {
         messageId: MESSAGE_IDS.PreferTernary,
         line: 2,
-        endLine: 8,
+        endLine: 5,
         column: 3,
-        endColumn: 3,
+        endColumn: 7,
       },
     ],
     options: [OPTIONS.preferTernary],

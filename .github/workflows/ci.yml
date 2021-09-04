@@ -1,0 +1,27 @@
+name: CI
+
+on: [push, pull_request]
+
+jobs:
+    test:
+        name: Test
+        runs-on: ubuntu-20.04
+        timeout-minutes: 3
+        steps:
+            - uses: actions/checkout@v2
+            - uses: actions/setup-node@v1
+              with:
+                node-version: 14
+
+            - name: Dependencies
+              run: yarn install --frozen-lockfile
+
+            - name: Test with coverage
+              run: |
+                yarn check-coverage
+                yarn report-coverage
+            - uses: codecov/codecov-action@v2
+              with:
+                token: ${{ secrets.CODECOV_TOKEN }}
+                files: ./coverage.lcov
+                name: Codecov
