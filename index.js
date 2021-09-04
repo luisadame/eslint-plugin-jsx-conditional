@@ -8,16 +8,18 @@ module.exports = {
   rules,
   configs: {
     recommended: {
+      plugins: ['jsx-conditional'],
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
         },
       },
       rules: {
-        'jsx-conditional': 2,
+        'jsx-conditional/jsx-conditional': 2,
       },
     },
     all: {
+      plugins: ['jsx-conditional'],
       parserOptions: {
         ecmaFeatures: {
           jsx: true,
