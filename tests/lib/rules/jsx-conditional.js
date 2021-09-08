@@ -119,10 +119,6 @@ const validTestCases = [
     options: [OPTIONS.preferAndOperator],
   },
   {
-    code: `<div>{propA ? <span>Hello</span> : <span>Bye</span>}</div>`,
-    options: [OPTIONS.preferAndOperator],
-  },
-  {
     code: stripIndent`
       <div>
         {propA ? (
@@ -364,6 +360,80 @@ const invalidTestCases = [
       },
     ],
     options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{propA ? <span>Hello</span> : <span>Bye</span>}</div>`,
+    output: `<div>{propA && <span>Hello</span>}{!propA && <span>Bye</span>}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 53,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{isSomething() ? <span>Hello</span> : <span>Bye</span>}</div>`,
+    output: `<div>{isSomething() && <span>Hello</span>}{!(isSomething()) && <span>Bye</span>}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 61,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{1 + 3 === 4 ? <span>Hello</span> : <span>Bye</span>}</div>`,
+    output: `<div>{1 + 3 === 4 && <span>Hello</span>}{!(1 + 3 === 4) && <span>Bye</span>}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 59,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: stripIndent`
+      <div>
+        {[1, 2, 3].every(number => typeof number === 'number') ? (
+          <div>
+            <span>Multiple</span>
+            <span>Children</span>
+          </div>
+        ) : (
+          <span>Bye</span>
+        )}
+      </div>
+    `,
+    output: stripIndent`
+      <div>
+        {[1, 2, 3].every(number => typeof number === 'number') && <div>
+            <span>Multiple</span>
+            <span>Children</span>
+          </div>}{!([1, 2, 3].every(number => typeof number === 'number')) && <span>Bye</span>}
+      </div>
+    `,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 2,
+        endLine: 9,
+        column: 3,
+        endColumn: 5,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
   },
 ];
 
