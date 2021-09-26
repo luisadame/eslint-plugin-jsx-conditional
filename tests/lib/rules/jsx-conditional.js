@@ -442,6 +442,20 @@ const invalidTestCases = [
     ],
     options: [OPTIONS.preferAndOperator],
   },
+  {
+    code: `<div>{a ? 1 : b ? 2 : 3}</div>`,
+    output: `<div>{a && 1}{!a && b ? 2 : 3}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 25,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
 ];
 
 const ruleTester = new RuleTester(test, {
