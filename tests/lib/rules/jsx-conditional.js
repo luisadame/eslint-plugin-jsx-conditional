@@ -23,6 +23,9 @@ const MESSAGE_IDS = {
 const OPTIONS = {
   preferTernary: 'prefer-ternary',
   preferAndOperator: 'prefer-and-operator',
+  additionalProperties: {
+    exceptNotNullishAlternates: true,
+  },
 };
 
 const validTestCases = [
@@ -144,6 +147,10 @@ const validTestCases = [
       </div>
     `,
     options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{propA ? <span>Hello</span> : <span>Bye</span>}</div>`,
+    options: [OPTIONS.preferAndOperator, OPTIONS.additionalProperties],
   },
 ];
 
