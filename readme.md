@@ -15,12 +15,16 @@ This rule checks that conditionals expressions or logical expression match a cer
 
 ### Options
 
-This rule accepts an argument that can be one of two possible values:
+This rule accepts as a first argument one of these two possible values:
 
 - `prefer-ternary`
 - `prefer-and-operator`
 
 The default value is `prefer-ternary`.
+
+It also accepts a second argument defining the options of the rule. Options are:
+
+- `exceptNotNullishAlternates`: this option is taken into account only on `prefer-and-operator` mode
 
 ### `prefer-ternary`
 
@@ -106,13 +110,37 @@ function Component({ propA }) {
 This option will check for conditional expressions inside JSX code and if it finds a conditional expression that follows the following shape:
 
 ```jsx
-<>{identifier ? JSXElement | JSXFragment : null}</>
+<>{identifier ? JSXElement | JSXFragment : JSXElement | JSXFragment}</>
 ```
 
 And this would be auto fixable outputing the following code
 
 ```jsx
-<>{identifier && JSXElement | JSXFragment}</>
+<>
+  {identifier && JSXElement | JSXFragment}
+  {!identifier && JSXElement | JSXFragment}
+</>
+```
+
+Being two logical expressions where the first tests the condition and renders the consequent of the conditional expression and the second negates
+the test and renders the alternate.
+
+If a conditional expression is preferred over a logical expression when the alternate is not `null` or `undefined` you can tell the rule your
+preferences by using the option `exceptNotNullishAlternates` as a second argument in the rule declaration on `.eslintrc`
+
+Example:
+
+```javascript
+// .eslintrc.js
+module.exports = {
+  extends: [...],
+  plugins: [..., 'jsx-conditional'],
+  rules: {
+    ...
+    'jsx-conditional/jsx-conditional': ['error', 'prefer-and-operator', { exceptNotNullishAlternates: true }]
+    ...
+  }
+}
 ```
 
 ### Examples
@@ -158,6 +186,8 @@ function Component({ propA }) {
   return <>{propA ? <span>Hello</span> : null}</>;
 }
 ```
+
+This can be valid if you prefer by indicating it in the options argument `{ exceptNotNullishAlternates: true }`, but without it the following code would be invalid.
 
 ```jsx
 function Component({ propA }) {
