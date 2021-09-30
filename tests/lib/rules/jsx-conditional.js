@@ -81,10 +81,6 @@ const validTestCases = [
     options: [OPTIONS.preferAndOperator],
   },
   {
-    code: `<div>{propA && 1}</div>`,
-    options: [OPTIONS.preferTernary],
-  },
-  {
     code: `<div>{propA || 1}</div>`,
     options: [OPTIONS.preferTernary],
   },
@@ -251,6 +247,7 @@ const invalidTestCases = [
     ],
     options: [OPTIONS.preferTernary],
   },
+
   {
     code: `<div>{propA ? <span>Hello</span> : undefined}</div>`,
     output: `<div>{propA && <span>Hello</span>}</div>`,
@@ -452,6 +449,90 @@ const invalidTestCases = [
         endLine: 1,
         column: 6,
         endColumn: 25,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{propA && 1}</div>`,
+    output: `<div>{propA ? 1 : null}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferTernary,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 18,
+      },
+    ],
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{propA && 'Hello'}</div>`,
+    output: `<div>{propA ? 'Hello' : null}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferTernary,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 24,
+      },
+    ],
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: '<div>{propA && `Hello`}</div>',
+    output: '<div>{propA ? `Hello` : null}</div>',
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferTernary,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 24,
+      },
+    ],
+    options: [OPTIONS.preferTernary],
+  },
+  {
+    code: `<div>{propA ? 1 : null}</div>`,
+    output: `<div>{propA && 1}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 24,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: `<div>{propA ? 'Hello' : null}</div>`,
+    output: `<div>{propA && 'Hello'}</div>`,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 30,
+      },
+    ],
+    options: [OPTIONS.preferAndOperator],
+  },
+  {
+    code: '<div>{propA ? `Hello` : null}</div>',
+    output: '<div>{propA && `Hello`}</div>',
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferAndOperator,
+        line: 1,
+        endLine: 1,
+        column: 6,
+        endColumn: 30,
       },
     ],
     options: [OPTIONS.preferAndOperator],
