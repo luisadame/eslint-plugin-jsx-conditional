@@ -170,6 +170,20 @@ const invalidTestCases = [
     ],
   },
   {
+    code: `<div>{propA && (<span>Hello</span>)}</div>`,
+    output: `<div>{propA ? (<span>Hello</span>) : null}</div>`,
+    options: [OPTIONS.preferTernary],
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferTernary,
+        line: 1,
+        column: 6,
+        endLine: 1,
+        endColumn: 37,
+      },
+    ],
+  },
+  {
     code: stripIndent`
       function Component({ propA }) {
         return (
