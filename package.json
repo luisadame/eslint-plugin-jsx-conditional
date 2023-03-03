@@ -26,16 +26,16 @@
     "report-coverage": "c8 report --reporter text-lcov > coverage.lcov"
   },
   "devDependencies": {
-    "ava": "^3.15.0",
-    "c8": "^7.8.0",
-    "common-tags": "^1.8.0",
-    "eslint": "^7.32.0",
+    "ava": "^5.2.0",
+    "c8": "^7.13.0",
+    "common-tags": "^1.8.2",
+    "eslint": "^8.35.0",
     "eslint-ava-rule-tester": "^4.0.0",
-    "eslint-config-prettier": "^8.3.0",
-    "eslint-config-standard": "^16.0.3",
-    "eslint-plugin-import": "^2.24.2",
+    "eslint-config-prettier": "^8.6.0",
+    "eslint-config-standard": "^17.0.0",
+    "eslint-plugin-import": "^2.27.5",
     "eslint-plugin-node": "^11.1.0",
-    "eslint-plugin-promise": "^5.1.0",
-    "prettier": "^2.3.2"
+    "eslint-plugin-promise": "^6.1.1",
+    "prettier": "^2.8.4"
   }
 }
