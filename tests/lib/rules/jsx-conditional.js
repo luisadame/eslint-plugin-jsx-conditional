@@ -266,6 +266,38 @@ const invalidTestCases = [
     options: [OPTIONS.preferTernary],
   },
   {
+    code: stripIndent`
+      <div>
+        {propA && (
+          <>
+            <span>Hello</span>
+            <span>Hello 2</span>
+          </>
+        )}
+      </div>
+    `,
+    output: stripIndent`
+      <div>
+        {propA ? (
+          <>
+            <span>Hello</span>
+            <span>Hello 2</span>
+          </>
+        ) : null}
+      </div>
+    `,
+    errors: [
+      {
+        messageId: MESSAGE_IDS.PreferTernary,
+        line: 2,
+        endLine: 7,
+        column: 3,
+        endColumn: 5,
+      },
+    ],
+    options: [OPTIONS.preferTernary],
+  },
+  {
     code: `<div>{propA ? <span>Hello</span> : undefined}</div>`,
     output: `<div>{propA && <span>Hello</span>}</div>`,
     errors: [
